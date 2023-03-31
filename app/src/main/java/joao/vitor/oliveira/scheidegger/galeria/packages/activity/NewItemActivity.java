@@ -1,8 +1,10 @@
-package joao.vitor.oliveira.scheidegger.galeria;
+package joao.vitor.oliveira.scheidegger.galeria.packages.activity;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+
+import joao.vitor.oliveira.scheidegger.galeria.R;
 
 public class NewItemActivity extends AppCompatActivity {
 
