@@ -7,7 +7,7 @@
     tools:context=".packages.activity.NewItemActivity">
 
     <ImageView
-        android:id="@+id/imvPhotoPreviem"
+        android:id="@+id/imvPhotoPreview"
         android:layout_width="280dp"
         android:layout_height="280dp"
         android:layout_marginStart="8dp"
@@ -21,7 +21,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintBottom_toTopOf="@+id/btnAddItem"
-        app:layout_constraintTop_toBottomOf="@+id/imvPhotoPreviem"
+        app:layout_constraintTop_toBottomOf="@+id/imvPhotoPreview"
         app:srcCompat="@android:drawable/ic_menu_gallery"
         tools:layout_editor_absoluteX="114dp" />
 
@@ -36,7 +36,7 @@
         android:hint="Título"
         android:inputType="textPersonName"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/imvPhotoPreviem"
+        app:layout_constraintStart_toEndOf="@+id/imvPhotoPreview"
         app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
@@ -53,7 +53,7 @@
         android:inputType="textPersonName"
         app:layout_constraintBottom_toTopOf="@+id/btnAddItem"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/imvPhotoPreviem"
+        app:layout_constraintStart_toEndOf="@+id/imvPhotoPreview"
         app:layout_constraintTop_toBottomOf="@+id/etTitle" />
 
     <Button
