@@ -67,7 +67,7 @@ public class NewItemActivity extends AppCompatActivity {
                 i.setData(photoSelected);
                 i.putExtra("title", title);
                 i.putExtra("description", desc);
-                setResult(Activity.RESULT_OK);
+                setResult(Activity.RESULT_OK, i);
                 finish();
             }
         });
