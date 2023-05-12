@@ -1,6 +1,5 @@
 package joao.vitor.oliveira.scheidegger.galeria.packages.activity;
 
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -8,11 +7,14 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -58,7 +60,17 @@ public class MainActivity extends AppCompatActivity {
             MyItem myItem = new MyItem();
             myItem.title = data.getStringExtra("title");
             myItem.description = data.getStringExtra("description");
-            myItem.photo= data.getData();
+            Uri selectedPhotoUri = data.getData();
+
+            try {
+                Bitmap photo = com.example.produtos.util.Util.getBitmap(MainActivity.this, selectedPhotoUri, 100, 100);
+                myItem.photo = photo;
+            } catch (FileNotFoundException e) {
+                MyAdapter.notifyItemInserted(itens.size()-1);
+            }
+
+
+
             itens.add(myItem);
             myAdapter.notifyItemInserted(itens.size() - 1);
         }
