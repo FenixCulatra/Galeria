@@ -62,11 +62,12 @@ public class MainActivity extends AppCompatActivity {
             myItem.description = data.getStringExtra("description");
             Uri selectedPhotoUri = data.getData();
 
+            //Aqui abaixo é recebido o a imagem bitmap e adicionado o bitmap ao myItem
             try {
                 Bitmap photo = com.example.produtos.util.Util.getBitmap(MainActivity.this, selectedPhotoUri, 100, 100);
                 myItem.photo = photo;
             } catch (FileNotFoundException e) {
-                MyAdapter.notifyItemInserted(itens.size()-1);
+                e.printStackTrace();
             }
 
 
