@@ -21,6 +21,7 @@ import java.util.List;
 import joao.vitor.oliveira.scheidegger.galeria.R;
 import joao.vitor.oliveira.scheidegger.galeria.packages.adapter.MyAdapter;
 import joao.vitor.oliveira.scheidegger.galeria.packages.model.MyItem;
+import joao.vitor.oliveira.scheidegger.galeria.packages.util.Util;
 
 public class MainActivity extends AppCompatActivity {
     static int NEW_ITEM_REQUEST = 1;
@@ -33,12 +34,15 @@ public class MainActivity extends AppCompatActivity {
         FloatingActionButton fab = findViewById(R.id.fabAddNewItem);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
+            //Cria um evento para o botao, onde o cria e te manda para uma nova atividade, esperando um resultado vindo dela
+            //O resultado vai ser um titulo
             public void onClick(View view) {
                 Intent i = new Intent(MainActivity.this, NewItemActivity.class);
                 startActivityForResult(i, NEW_ITEM_REQUEST);
             }
         });
 
+        //Aqui o recycler view é configurado e coloca qual objeto ele vai repetir
         RecyclerView rvItens = findViewById(R.id.rvItens);
         myAdapter = new MyAdapter(this, itens);
         rvItens.setAdapter(myAdapter);
@@ -54,6 +58,7 @@ public class MainActivity extends AppCompatActivity {
 
 }
     @Override
+    //Aqui eu obtenho o resultado da atividades
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == NEW_ITEM_REQUEST && resultCode == Activity.RESULT_OK) {
@@ -64,14 +69,14 @@ public class MainActivity extends AppCompatActivity {
 
             //Aqui abaixo é recebido o a imagem bitmap e adicionado o bitmap ao myItem
             try {
-                Bitmap photo = com.example.produtos.util.Util.getBitmap(MainActivity.this, selectedPhotoUri, 100, 100);
+                Bitmap photo = Util.getBitmap(MainActivity.this, selectedPhotoUri, 100, 100);
                 myItem.photo = photo;
             } catch (FileNotFoundException e) {
                 e.printStackTrace();
             }
 
 
-
+            //O item é adicionado à lista de itens
             itens.add(myItem);
             myAdapter.notifyItemInserted(itens.size() - 1);
         }

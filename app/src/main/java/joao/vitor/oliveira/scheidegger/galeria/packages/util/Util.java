@@ -1,4 +1,4 @@
-package com.example.produtos.util;
+package joao.vitor.oliveira.scheidegger.galeria.packages.util;
 
 import android.content.Context;
 import android.graphics.Bitmap;
