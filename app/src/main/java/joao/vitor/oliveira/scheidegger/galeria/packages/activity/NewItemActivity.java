@@ -3,6 +3,7 @@ package joao.vitor.oliveira.scheidegger.galeria.packages.activity;
 import androidx.activity.result.ActivityResult;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.ViewModelProvider;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -16,16 +17,25 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 import joao.vitor.oliveira.scheidegger.galeria.R;
+import joao.vitor.oliveira.scheidegger.galeria.packages.model.NewItemActivityViewModel;
 
 public class NewItemActivity extends AppCompatActivity {
 
     static int PHOTO_PICKER_REQUEST = 1;
-    Uri photoSelected = null;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_new_item);
+
+        NewItemActivityViewModel vm = new ViewModelProvider(this).get(NewItemActivityViewModel.class);
+
+        Uri photoSelected = vm.getSelectedPhotoSelection();
+        if (photoSelected != null) {
+            ImageView imvPhotoPreview = findViewById(R.id.imvPhotoPreview);
+            imvPhotoPreview.setImageURI(photoSelected);
+        }
 
         ImageButton imgCI = findViewById(R.id.imbCl);
         Button btnAdd = findViewById(R.id.btnAddItem);
@@ -76,11 +86,15 @@ public class NewItemActivity extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
+        //Essa função busca ter uma uri da foto como resultado, passar ela para o viewMode e setar a imagem para o preview
         if (requestCode == PHOTO_PICKER_REQUEST) {
             if (resultCode == Activity.RESULT_OK) {
-                photoSelected = data.getData();
+                Uri photoSelected = data.getData();
                 ImageView imvPreview = findViewById(R.id.imvPhotoPreview);
                 imvPreview.setImageURI(photoSelected);
+
+                NewItemActivityViewModel vm = new ViewModelProvider(this).get(NewItemActivityViewModel.class);
+                vm.setSelectedPhotoSelection(photoSelected);
 
             }
         }

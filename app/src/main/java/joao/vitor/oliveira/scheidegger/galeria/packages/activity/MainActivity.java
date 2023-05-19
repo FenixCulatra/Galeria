@@ -1,6 +1,7 @@
 package joao.vitor.oliveira.scheidegger.galeria.packages.activity;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -20,12 +21,13 @@ import java.util.List;
 
 import joao.vitor.oliveira.scheidegger.galeria.R;
 import joao.vitor.oliveira.scheidegger.galeria.packages.adapter.MyAdapter;
+import joao.vitor.oliveira.scheidegger.galeria.packages.model.MainActivityViewModel;
 import joao.vitor.oliveira.scheidegger.galeria.packages.model.MyItem;
 import joao.vitor.oliveira.scheidegger.galeria.packages.util.Util;
 
 public class MainActivity extends AppCompatActivity {
     static int NEW_ITEM_REQUEST = 1;
-    List<MyItem> itens = new ArrayList<>();
+
     MyAdapter myAdapter;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,8 +44,11 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        //Aqui o recycler view é configurado e coloca qual objeto ele vai repetir
+        //Aqui o recycler view é configurado e coloca qual objeto ele vai repetir, recebendo as informações que já existirem no ViewModel
         RecyclerView rvItens = findViewById(R.id.rvItens);
+        MainActivityViewModel vm = (MainActivityViewModel) new ViewModelProvider(this).get(MainActivityViewModel.class);
+        List<MyItem> itens = vm.getItens();
+
         myAdapter = new MyAdapter(this, itens);
         rvItens.setAdapter(myAdapter);
 
@@ -76,6 +81,8 @@ public class MainActivity extends AppCompatActivity {
             }
 
 
+            MainActivityViewModel vm = (MainActivityViewModel) new ViewModelProvider(this).get(MainActivityViewModel.class);
+            List<MyItem> itens = vm.getItens();
             //O item é adicionado à lista de itens
             itens.add(myItem);
             myAdapter.notifyItemInserted(itens.size() - 1);
